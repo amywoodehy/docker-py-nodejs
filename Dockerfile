@@ -11,7 +11,7 @@ RUN \
         libpq-dev gcc \
         python3-dev python3-pip \
         gettext \
-        apt-transport-https \
+        apt-utils apt-transport-https \
         mc htop pydf nmap whois vim
 
 # Install node prereqs, nodejs 7.x and yarn

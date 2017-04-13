@@ -4,8 +4,8 @@ services:
   - docker
 
 script:
-  - docker build -t py-nodejs .
-  - docker run python-nodejs /bin/sh -c "python -V && pip --version && node -v && npm -v && yarn -V"
+  - docker build -t $DOCKER_REPO .
+  - docker run $DOCKER_REPO /bin/sh -c "python -V && pip --version && node -v && npm -v && yarn -V"
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
