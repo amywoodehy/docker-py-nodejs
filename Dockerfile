@@ -28,10 +28,8 @@ RUN \
         nodejs yarn && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /code
-WORKDIR /code
-COPY requirements.txt /code/
+RUN mkdir /application
+WORKDIR /application
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
 
 CMD ["bash"]
