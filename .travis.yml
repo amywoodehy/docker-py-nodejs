@@ -3,12 +3,17 @@ sudo: required
 services:
   - docker
 
-script:
-  - docker build -t $DOCKER_REPO .
-  - docker run $DOCKER_REPO /bin/sh -c "python -V && pip --version && node -v && npm -v && yarn -V"
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::8}  
 
-after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push $DOCKER_USERNAME/$DOCKER_REPO;
-    fi
+script:
+  - docker images
+  - export REPO=$DOCKER_USERNAME/$DOCKER_REPO 
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker run $REPO /bin/sh -c "python -V && pip --version && node -v && npm -v && yarn -V"
+  - docker tag $REPO:$COMMIT $REPO:$TAG;
+  - docker push $REPO;
+  - docker images;
