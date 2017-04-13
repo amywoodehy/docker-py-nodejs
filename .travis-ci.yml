@@ -6,3 +6,9 @@ services:
 script:
   - docker build -t py-nodejs .
   - docker run python-nodejs /bin/sh -c "python -V && pip --version && node -v && npm -v && yarn -V"
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push $DOCKER_USERNAME/$DOCKER_REPO;
+    fi
