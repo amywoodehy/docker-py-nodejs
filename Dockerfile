@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.6
 MAINTAINER Amy Woodehy <amywoodehy@gmail.com>
 
 
@@ -12,7 +12,8 @@ RUN \
         python3-dev python3-pip \
         gettext \
         apt-utils apt-transport-https \
-        mc htop pydf nmap whois vim
+        vim && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install node prereqs, nodejs 7.x and yarn
 # Ref: https://deb.nodesource.com/setup_7.x
@@ -28,8 +29,6 @@ RUN \
         nodejs yarn && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /application
-WORKDIR /application
 RUN pip install --upgrade pip
 
 CMD ["bash"]
