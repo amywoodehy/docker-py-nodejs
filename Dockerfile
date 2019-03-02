@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.6-stretch
 MAINTAINER Amy Woodehy <amywoodehy@gmail.com>
 
 
@@ -21,8 +21,7 @@ RUN \
 # Ref: https://yarnpkg.com/en/docs/install
 # Source: https://github.com/nikolaik/docker-python-nodejs/
 RUN \
-    DISTRO="$(lsb_release -s -c)" && \
-    echo "deb https://deb.nodesource.com/node_10.x $DISTRO main" > /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
     wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
     wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
